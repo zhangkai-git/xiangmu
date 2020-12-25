@@ -6,4 +6,5 @@ public class URLContant {
 
 //    https://cdwan.cn/api/index
     public static String BASRURL = "https://cdwan.cn/";
+    public static String URL = "api/index";
 }

@@ -13,6 +13,6 @@ public class MainContract {
         void getData(ShowBean showBean);
     }
     public interface IMainPresenter{
-        void getData();
+        void getPresenterData();
     }
 }

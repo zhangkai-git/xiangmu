@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
+import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
+import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.bumptech.glide.Glide;
 import com.example.mvplibrary.utils.net.RetrofitUtils;
 import com.example.xiangmu.R;
@@ -25,27 +27,33 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
-public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder> {
+public class BannerAdapter extends DelegateAdapter.Adapter {
     private Context context;
     private ArrayList<ShowBean.DataBean.BannerBean> bannerlist;
+    private LinearLayoutHelper linearLayoutHelper;
 
-    public BannerAdapter(Context context, ArrayList<ShowBean.DataBean.BannerBean> bannerlist) {
+    public BannerAdapter(Context context, ArrayList<ShowBean.DataBean.BannerBean> bannerlist, LinearLayoutHelper linearLayoutHelper) {
         this.context = context;
         this.bannerlist = bannerlist;
+        this.linearLayoutHelper = linearLayoutHelper;
+    }
+
+    @Override
+    public LayoutHelper onCreateLayoutHelper() {
+        return linearLayoutHelper;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(context).inflate(R.layout.item_banner, parent, false);
-        return new ViewHolder(inflate);
+        return new VH(inflate);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ShowBean.DataBean.BannerBean bean = bannerlist.get(position);
-        ViewHolder viewHolder = holder;
-        viewHolder.banner.setImages(bannerlist).setImageLoader(new ImageLoader() {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        VH vh = (VH) holder;
+        vh.banner.setImages(bannerlist).setImageLoader(new ImageLoader() {
             @Override
             public void displayImage(Context context, Object path, ImageView imageView) {
                 ShowBean.DataBean.BannerBean bannerBean = (ShowBean.DataBean.BannerBean) path;
@@ -56,12 +64,13 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return bannerlist.size();
+        return 1;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    private class VH extends RecyclerView.ViewHolder {
         Banner banner;
-        public ViewHolder(@NonNull View itemView) {
+
+        public VH(@NonNull View itemView) {
             super(itemView);
             banner = itemView.findViewById(R.id.banner);
         }

@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import java.util.function.Predicate;
 
-public abstract class BaseFragment<P> extends Fragment {
+public abstract class BaseFragment<P extends BasePresenter> extends Fragment implements BaseView {
     public P Presenter;
 
     @Nullable
@@ -21,6 +21,7 @@ public abstract class BaseFragment<P> extends Fragment {
         View inflate = inflater.inflate(getLayoutID(), container, false);
         if (Presenter == null) {
             Presenter = getPresenter();
+            Presenter.attachView(this);
         }
         initView(inflate);
         initData();
@@ -32,7 +33,7 @@ public abstract class BaseFragment<P> extends Fragment {
 
     protected abstract void initView(View inflate);
 
-    protected abstract P getPresenter();
-
     protected abstract int getLayoutID();
+
+    protected abstract P getPresenter();
 }

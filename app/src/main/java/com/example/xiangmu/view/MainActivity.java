@@ -1,46 +1,20 @@
 package com.example.xiangmu.view;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.text.Layout;
-import android.view.View;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.VirtualLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.alibaba.android.vlayout.DelegateAdapter;
-import com.alibaba.android.vlayout.VirtualLayoutManager;
-import com.alibaba.android.vlayout.layout.GridLayoutHelper;
-import com.bumptech.glide.Glide;
 import com.example.fragment.FiveFragment;
 import com.example.fragment.FourFragment;
 import com.example.fragment.OneFragment;
 import com.example.fragment.ThreeFragment;
 import com.example.fragment.TwoFragment;
-import com.example.mvplibrary.base.BaseActivity;
 import com.example.xiangmu.R;
-import com.example.xiangmu.contract.MainContract;
-import com.example.xiangmu.presenter.MainPresenterImpl;
-import com.google.android.material.resources.TextAppearanceConfig;
-import com.youth.banner.Banner;
-import com.youth.banner.loader.ImageLoader;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 

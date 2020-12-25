@@ -19,12 +19,10 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 public class RetrofitUtils implements INetWorkInterface {
-    public static RetrofitUtils retrofitUtils;
+    private static RetrofitUtils retrofitUtils;
     private ApiService apiService;
 
-    private RetrofitUtils() {
-//        OkHttpClient okHttpClient = new OkHttpClient().newBuilder().build();
-
+    public RetrofitUtils() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URLContant.BASRURL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

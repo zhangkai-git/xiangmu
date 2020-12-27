@@ -2,6 +2,8 @@ package com.example.fragment;
 
 import android.content.Context;
 import android.media.Image;
+import android.os.HardwarePropertiesManager;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,21 +17,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
-import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.bumptech.glide.Glide;
 import com.example.bean.ShowBean;
 import com.example.xiangmu.R;
+import com.google.android.material.resources.TextAppearanceConfig;
 
 import java.util.ArrayList;
 
-public class NewGoodsAdapter extends DelegateAdapter.Adapter {
+public class HotGoodsAdapter extends DelegateAdapter.Adapter {
     private Context context;
-    private ArrayList<ShowBean.DataBean.NewGoodsListBean> newgoodslist;
+    private ArrayList<ShowBean.DataBean.HotGoodsListBean> hotgoodslist;
     private GridLayoutHelper gridLayoutHelper;
 
-    public NewGoodsAdapter(Context context, ArrayList<ShowBean.DataBean.NewGoodsListBean> newgoodslist, GridLayoutHelper gridLayoutHelper) {
+    public HotGoodsAdapter(Context context, ArrayList<ShowBean.DataBean.HotGoodsListBean> hotgoodslist, GridLayoutHelper gridLayoutHelper) {
         this.context = context;
-        this.newgoodslist = newgoodslist;
+        this.hotgoodslist = hotgoodslist;
         this.gridLayoutHelper = gridLayoutHelper;
     }
 
@@ -41,34 +43,34 @@ public class NewGoodsAdapter extends DelegateAdapter.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate = LayoutInflater.from(context).inflate(R.layout.item_newgoods, parent, false);
-        return new NewGoodsVH(inflate);
+        View inflate = LayoutInflater.from(context).inflate(R.layout.item_hotgoods, parent, false);
+        return new HotGoodsVH(inflate);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ShowBean.DataBean.NewGoodsListBean newGoodsListBean = newgoodslist.get(position);
-        NewGoodsVH vh = (NewGoodsVH) holder;
-        vh.name.setText(newGoodsListBean.getName());
-        vh.price.setText("$"+newGoodsListBean.getRetail_price());
-        Glide.with(context).load(newGoodsListBean.getList_pic_url()).into(vh.image);
+        ShowBean.DataBean.HotGoodsListBean hotGoodsListBean = hotgoodslist.get(position);
+        HotGoodsVH vh = (HotGoodsVH) holder;
+        vh.name.setText(hotGoodsListBean.getName());
+        vh.price.setText("$"+hotGoodsListBean.getRetail_price());
+        Glide.with(context).load(hotGoodsListBean.getList_pic_url()).into(vh.image);
     }
 
     @Override
     public int getItemCount() {
-        return newgoodslist.size();
+        return hotgoodslist.size();
     }
 
-    private class NewGoodsVH extends RecyclerView.ViewHolder {
+    private class HotGoodsVH extends RecyclerView.ViewHolder {
         ImageView image;
         TextView name;
         TextView price;
 
-        public NewGoodsVH(@NonNull View itemView) {
+        public HotGoodsVH(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.newgoods_image);
-            name = itemView.findViewById(R.id.newgoods_name);
-            price = itemView.findViewById(R.id.newgoods_price);
+            image = itemView.findViewById(R.id.hotgoods_image);
+            name = itemView.findViewById(R.id.hotgoods_name);
+            price = itemView.findViewById(R.id.hotgoods_price);
         }
     }
 }

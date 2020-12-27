@@ -40,6 +40,9 @@ public class OneFragment extends BaseFragment<MainPresenterImpl> implements Main
     private TextNAdapter textNAdapter;
     private ArrayList<ShowBean.DataBean.NewGoodsListBean> newgoodslist;
     private NewGoodsAdapter newGoodsAdapter;
+    private TextRAdapter textRAdapter;
+    private ArrayList<ShowBean.DataBean.HotGoodsListBean> hotgoodslist;
+    private HotGoodsAdapter hotGoodsAdapter;
 
     @Override
     protected void initView(View inflate) {
@@ -57,13 +60,32 @@ public class OneFragment extends BaseFragment<MainPresenterImpl> implements Main
         imagev();
         textnew();
         newgoods();
-        DelegateAdapter adapter = new DelegateAdapter(virtualLayoutManager, false);
+        textrenqi();
+        hotgoods();
+        DelegateAdapter adapter = new DelegateAdapter(virtualLayoutManager);
         adapter.addAdapter(bannerAdapter);
         adapter.addAdapter(oneAdapter);
         adapter.addAdapter(wenAdapter);
         adapter.addAdapter(imagevAdapter);
         adapter.addAdapter(textNAdapter);
+        adapter.addAdapter(newGoodsAdapter);
+        adapter.addAdapter(textRAdapter);
+        adapter.addAdapter(hotGoodsAdapter);
         mrecycler.setAdapter(adapter);
+    }
+
+    private void hotgoods() {
+        GridLayoutHelper gridLayoutHelper = new GridLayoutHelper(1);
+        gridLayoutHelper.setItemCount(3);
+        //网格布局管理器
+        hotgoodslist = new ArrayList<>();
+        hotGoodsAdapter = new HotGoodsAdapter(getActivity(), hotgoodslist, gridLayoutHelper);
+    }
+
+    private void textrenqi() {
+        LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
+        linearLayoutHelper.setItemCount(1);
+        textRAdapter = new TextRAdapter(getActivity(), linearLayoutHelper);
     }
 
     private void newgoods() {
@@ -77,7 +99,6 @@ public class OneFragment extends BaseFragment<MainPresenterImpl> implements Main
     private void textnew() {
         LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
         linearLayoutHelper.setItemCount(1);
-        VirtualLayoutManager virtualLayoutManager = new VirtualLayoutManager(getActivity());
         textNAdapter = new TextNAdapter(getActivity(), linearLayoutHelper);
     }
 
@@ -97,7 +118,6 @@ public class OneFragment extends BaseFragment<MainPresenterImpl> implements Main
         linearLayoutHelper.setItemCount(1);// 设置布局里Item个数
 
         // linearLayoutHelper特有属性
-        VirtualLayoutManager layoutManager = new VirtualLayoutManager(getActivity());
         wenAdapter = new WenAdapter(getActivity(), linearLayoutHelper);
     }
 
@@ -161,5 +181,8 @@ public class OneFragment extends BaseFragment<MainPresenterImpl> implements Main
         List<ShowBean.DataBean.NewGoodsListBean> newGoodsList = showBean.getData().getNewGoodsList();
         newgoodslist.addAll(newGoodsList);
         newGoodsAdapter.notifyDataSetChanged();
+        List<ShowBean.DataBean.HotGoodsListBean> hotGoodsList = showBean.getData().getHotGoodsList();
+        hotgoodslist.addAll(hotGoodsList);
+        hotGoodsAdapter.notifyDataSetChanged();
     }
 }

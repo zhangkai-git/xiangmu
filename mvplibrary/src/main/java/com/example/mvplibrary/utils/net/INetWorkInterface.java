@@ -11,4 +11,5 @@ public interface INetWorkInterface {
 
     <p> void getnewgoods(String url, INetCallBack<p> callBack);
 
+    <p> void gethotgoods(String url, INetCallBack<p> callBack);
 }

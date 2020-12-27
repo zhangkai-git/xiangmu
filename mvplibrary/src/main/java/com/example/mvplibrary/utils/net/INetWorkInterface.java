@@ -6,4 +6,9 @@ public interface INetWorkInterface {
     <P> void get(String url, INetCallBack<P> callBack);
 
     <p> void gettwo(String url, INetCallBack<p> callBack);
+
+    <p> void getbrand(String url, INetCallBack<p> callBack);
+
+    <p> void getnewgoods(String url, INetCallBack<p> callBack);
+
 }

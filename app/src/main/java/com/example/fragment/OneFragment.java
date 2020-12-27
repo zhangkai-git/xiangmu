@@ -1,13 +1,16 @@
 package com.example.fragment;
 
 import android.graphics.Color;
+import android.provider.Telephony;
 import android.view.View;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.ColumnLayoutHelper;
+import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.example.adapter.WenAdapter;
 import com.example.mvplibrary.base.BaseFragment;
@@ -20,6 +23,7 @@ import com.example.bean.ShowBean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.WeakHashMap;
 
 public class OneFragment extends BaseFragment<MainPresenterImpl> implements MainContract.IMainView {
 
@@ -29,7 +33,13 @@ public class OneFragment extends BaseFragment<MainPresenterImpl> implements Main
     private BannerAdapter bannerAdapter;
     private ArrayList<ShowBean.DataBean.ChannelBean> list;
     private OneAdapter oneAdapter;
+    private ImagevAdapter imagevAdapter;
+    private ArrayList<ShowBean.DataBean.BrandListBean> brandlist;
+    private DelegateAdapter adapter;
     private WenAdapter wenAdapter;
+    private TextNAdapter textNAdapter;
+    private ArrayList<ShowBean.DataBean.NewGoodsListBean> newgoodslist;
+    private NewGoodsAdapter newGoodsAdapter;
 
     @Override
     protected void initView(View inflate) {
@@ -43,24 +53,51 @@ public class OneFragment extends BaseFragment<MainPresenterImpl> implements Main
         recycledViewPool.setMaxRecycledViews(0, 10);
         banner();
         liebiao();
-        text();
-        DelegateAdapter adapter = new DelegateAdapter(virtualLayoutManager, true);
+        texttwo();
+        imagev();
+        textnew();
+        newgoods();
+        DelegateAdapter adapter = new DelegateAdapter(virtualLayoutManager, false);
         adapter.addAdapter(bannerAdapter);
         adapter.addAdapter(oneAdapter);
         adapter.addAdapter(wenAdapter);
+        adapter.addAdapter(imagevAdapter);
+        adapter.addAdapter(textNAdapter);
         mrecycler.setAdapter(adapter);
     }
 
-    private void text() {
+    private void newgoods() {
+        GridLayoutHelper gridLayoutHelper = new GridLayoutHelper(2);
+        gridLayoutHelper.setItemCount(4);
+        //网格布局管理器
+        newgoodslist = new ArrayList<>();
+        newGoodsAdapter = new NewGoodsAdapter(getActivity(), newgoodslist, gridLayoutHelper);
+    }
+
+    private void textnew() {
+        LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
+        linearLayoutHelper.setItemCount(1);
+        VirtualLayoutManager virtualLayoutManager = new VirtualLayoutManager(getActivity());
+        textNAdapter = new TextNAdapter(getActivity(), linearLayoutHelper);
+    }
+
+    private void imagev() {
+        GridLayoutHelper gridLayoutHelper = new GridLayoutHelper(2);
+        gridLayoutHelper.setItemCount(4);
+        //网格布局管理器
+        brandlist = new ArrayList<>();
+        imagevAdapter = new ImagevAdapter(getActivity(), brandlist, gridLayoutHelper);
+    }
+
+    private void texttwo() {
         LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
         // 创建对应的LayoutHelper对象
 
         // 所有布局的公共属性（属性会在下面详细说明）
         linearLayoutHelper.setItemCount(1);// 设置布局里Item个数
-        linearLayoutHelper.setBgColor(Color.WHITE);// 设置背景颜色
 
         // linearLayoutHelper特有属性
-        linearLayoutHelper.setDividerHeight(1); // 设置每行Item的距离
+        VirtualLayoutManager layoutManager = new VirtualLayoutManager(getActivity());
         wenAdapter = new WenAdapter(getActivity(), linearLayoutHelper);
     }
 
@@ -118,5 +155,11 @@ public class OneFragment extends BaseFragment<MainPresenterImpl> implements Main
         List<ShowBean.DataBean.ChannelBean> channel = showBean.getData().getChannel();
         list.addAll(channel);
         oneAdapter.notifyDataSetChanged();
+        List<ShowBean.DataBean.BrandListBean> brandList = showBean.getData().getBrandList();
+        brandlist.addAll(brandList);
+        imagevAdapter.notifyDataSetChanged();
+        List<ShowBean.DataBean.NewGoodsListBean> newGoodsList = showBean.getData().getNewGoodsList();
+        newgoodslist.addAll(newGoodsList);
+        newGoodsAdapter.notifyDataSetChanged();
     }
 }

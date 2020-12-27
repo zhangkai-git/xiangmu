@@ -36,31 +36,33 @@ public class OneAdapter extends DelegateAdapter.Adapter {
         return columnLayoutHelper;
     }
 
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(context).inflate(R.layout.item_one, parent, false);
-        return new VH(inflate);
+        return new VHH(inflate);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        VH vh = (VH) holder;
+        VHH vhh = (VHH) holder;
         ShowBean.DataBean.ChannelBean channelBean = list.get(position);
-        vh.name.setText(channelBean.getName());
-        Glide.with(context).load(channelBean.getIcon_url()).into(vh.image);
+        vhh.name.setText(channelBean.getName());
+        Glide.with(context).load(channelBean.getIcon_url()).into(vhh.image);
     }
+
 
     @Override
     public int getItemCount() {
         return list.size();
     }
 
-    public class VH extends RecyclerView.ViewHolder {
+    public class VHH extends RecyclerView.ViewHolder {
         ImageView image;
         TextView name;
 
-        public VH(@NonNull View itemView) {
+        public VHH(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.iv_image);
             name = itemView.findViewById(R.id.tv_name);

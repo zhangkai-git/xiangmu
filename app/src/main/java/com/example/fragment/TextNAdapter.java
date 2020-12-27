@@ -1,6 +1,7 @@
-package com.example.adapter;
+package com.example.fragment;
 
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +13,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
+import com.example.adapter.OneAdapter;
 import com.example.xiangmu.R;
 
 
-public class WenAdapter extends DelegateAdapter.Adapter {
-    private Context Context;
+public class TextNAdapter extends DelegateAdapter.Adapter {
+    private Context context;
     private LinearLayoutHelper linearLayoutHelper;
 
-    public WenAdapter(android.content.Context context, LinearLayoutHelper linearLayoutHelper) {
-        Context = context;
+    public TextNAdapter(Context context, LinearLayoutHelper linearLayoutHelper) {
+        this.context = context;
         this.linearLayoutHelper = linearLayoutHelper;
     }
 
@@ -29,12 +31,11 @@ public class WenAdapter extends DelegateAdapter.Adapter {
         return linearLayoutHelper;
     }
 
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate = LayoutInflater.from(Context).inflate(R.layout.item_text, parent, false);
-        return new VH(inflate);
+        View inflate = LayoutInflater.from(context).inflate(R.layout.item_textnew, parent, false);
+        return new TEXTNEWVH(inflate);
     }
 
     @Override
@@ -47,16 +48,12 @@ public class WenAdapter extends DelegateAdapter.Adapter {
         return 1;
     }
 
-    private class VH extends RecyclerView.ViewHolder {
-        private TextView name;
+    private class TEXTNEWVH extends RecyclerView.ViewHolder {
+        TextView name;
 
-        public VH(@NonNull View itemView) {
+        public TEXTNEWVH(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.tv_text_name);
+            name = itemView.findViewById(R.id.tv_new_name);
         }
-    }
-
-    public interface OnClickListener {
-        void onClick();
     }
 }

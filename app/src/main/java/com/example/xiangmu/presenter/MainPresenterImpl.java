@@ -8,10 +8,9 @@ import com.example.mvplibrary.utils.net.INetCallBack;
 import com.example.mvplibrary.utils.net.URLContant;
 import com.example.xiangmu.contract.MainContract;
 import com.example.xiangmu.model.MainModelImpl;
-import com.example.xiangmu.view.ShowBean;
+import com.example.bean.ShowBean;
 
 public class MainPresenterImpl extends BasePresenter<OneFragment,MainModelImpl> implements MainContract.IMainPresenter {
-
 
     @Override
     public void getPresenterData() {

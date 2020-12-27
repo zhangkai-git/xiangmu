@@ -1,4 +1,4 @@
-package com.example.xiangmu.view;
+package com.example.bean;
 
 import java.util.List;
 

@@ -25,8 +25,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private android.widget.RadioButton mRb4;
     private android.widget.RadioButton mRb5;
     private android.widget.FrameLayout mFlFragment;
-    private FragmentManager manager;
-    private FragmentTransaction begin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

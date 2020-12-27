@@ -3,7 +3,7 @@ package com.example.xiangmu.contract;
 import com.example.mvplibrary.base.BaseModel;
 import com.example.mvplibrary.base.BaseView;
 import com.example.mvplibrary.utils.net.INetCallBack;
-import com.example.xiangmu.view.ShowBean;
+import com.example.bean.ShowBean;
 
 public class MainContract {
     public interface IMainModel extends BaseModel {

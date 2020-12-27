@@ -1,4 +1,4 @@
-package com.example.xiangmu.view;
+package com.example.adapter;
 
 
 import android.content.Context;
@@ -8,24 +8,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
-import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
-import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.bumptech.glide.Glide;
-import com.example.mvplibrary.utils.net.RetrofitUtils;
+import com.example.bean.ShowBean;
 import com.example.xiangmu.R;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
-import com.youth.banner.view.BannerViewPager;
 
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.function.Predicate;
 
 public class BannerAdapter extends DelegateAdapter.Adapter {
     private Context context;

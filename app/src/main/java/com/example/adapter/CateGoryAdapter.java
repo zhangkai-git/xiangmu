@@ -82,7 +82,7 @@ public class CateGoryAdapter extends DelegateAdapter.Adapter {
 
         public CateVH(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.tv_name);
+            name = itemView.findViewById(R.id.tv_name_tv_name);
             recycler = itemView.findViewById(R.id.rv_recycler);
         }
     }

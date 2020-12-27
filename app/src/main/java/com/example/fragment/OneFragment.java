@@ -55,6 +55,7 @@ public class OneFragment extends BaseFragment<MainPresenterImpl> implements Main
     private TopicAdapter topicAdapter;
     private ArrayList<ShowBean.DataBean.CategoryListBean.GoodsListBean> goodsListBeans;
     private CateGoryAdapter cateGoryAdapter;
+    private ArrayList<ShowBean.DataBean.CategoryListBean> categoryListBeans;
 
     @Override
     protected void initView(View inflate) {
@@ -88,13 +89,15 @@ public class OneFragment extends BaseFragment<MainPresenterImpl> implements Main
         adapter.addAdapter(hotGoodsAdapter);
         adapter.addAdapter(textZAdapter);
         adapter.addAdapter(topicAdapter);
+        adapter.addAdapter(cateGoryAdapter);
         mrecycler.setAdapter(adapter);
     }
 
     private void category() {
         LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
-        goodsListBeans = new ArrayList<>();
-        cateGoryAdapter = new CateGoryAdapter(getActivity(), linearLayoutHelper, goodsListBeans);
+        linearLayoutHelper.setItemCount(1);
+        categoryListBeans = new ArrayList<>();
+        cateGoryAdapter = new CateGoryAdapter(getActivity(), linearLayoutHelper, categoryListBeans);
     }
 
     private void topic() {
@@ -224,8 +227,9 @@ public class OneFragment extends BaseFragment<MainPresenterImpl> implements Main
         List<ShowBean.DataBean.TopicListBean> topicList = showBean.getData().getTopicList();
         toplist.addAll(topicList);
         topicAdapter.notifyDataSetChanged();
-        List<ShowBean.DataBean.CategoryListBean.GoodsListBean> goodsList = showBean.getData().getCategoryList().get(0).getGoodsList();
-        goodsListBeans.addAll(goodsList);
+
+        List<ShowBean.DataBean.CategoryListBean> categoryList = showBean.getData().getCategoryList();
+        categoryListBeans.addAll(categoryList);
         cateGoryAdapter.notifyDataSetChanged();
     }
 }

@@ -18,8 +18,4 @@ public interface INetWorkInterface {
     <p> void getjujia(String url, INetCallBack<p> callBack);
 
     <p> void getcategory(String url, INetCallBack<p> callBack);
-
-    <p> void getcanchu(String url, INetCallBack<p> callBack);
-
-    <p> void getchuju(String url, INetCallBack<p> callBack);
 }

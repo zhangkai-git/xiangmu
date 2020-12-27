@@ -11,11 +11,9 @@ import com.alibaba.android.vlayout.layout.ColumnLayoutHelper;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.example.adapter.CateGoryAdapter;
-import com.example.adapter.CateGoryAdapter1;
 import com.example.adapter.HotGoodsAdapter;
 import com.example.adapter.ImagevAdapter;
 import com.example.adapter.NewGoodsAdapter;
-import com.example.adapter.TextCAdapter;
 import com.example.adapter.TextJAdapter;
 import com.example.adapter.TextNAdapter;
 import com.example.adapter.TextRAdapter;
@@ -55,13 +53,8 @@ public class OneFragment extends BaseFragment<MainPresenterImpl> implements Main
     private TextZAdapter textZAdapter;
     private ArrayList<ShowBean.DataBean.TopicListBean> toplist;
     private TopicAdapter topicAdapter;
-    private TextJAdapter textJAdapter;
     private ArrayList<ShowBean.DataBean.CategoryListBean.GoodsListBean> goodsListBeans;
     private CateGoryAdapter cateGoryAdapter;
-    private ArrayList<ShowBean.DataBean.CategoryListBean> categoryListBeans;
-    private ArrayList<ShowBean.DataBean.CategoryListBean> categoryListBeans1;
-    private TextCAdapter textCAdapter;
-    private ArrayList<ShowBean.DataBean.CategoryListBean.GoodsListBean> goodsListBeans1;
 
     @Override
     protected void initView(View inflate) {
@@ -83,10 +76,7 @@ public class OneFragment extends BaseFragment<MainPresenterImpl> implements Main
         hotgoods();
         textzhuanti();
         topic();
-        textjujia();
         category();
-        textcanchu();
-        category1();
         DelegateAdapter adapter = new DelegateAdapter(virtualLayoutManager);
         adapter.addAdapter(bannerAdapter);
         adapter.addAdapter(oneAdapter);
@@ -98,40 +88,13 @@ public class OneFragment extends BaseFragment<MainPresenterImpl> implements Main
         adapter.addAdapter(hotGoodsAdapter);
         adapter.addAdapter(textZAdapter);
         adapter.addAdapter(topicAdapter);
-        adapter.addAdapter(textJAdapter);
-        adapter.addAdapter(cateGoryAdapter);
-        adapter.addAdapter(textCAdapter);
         mrecycler.setAdapter(adapter);
     }
 
-    private void category1() {
-        GridLayoutHelper gridLayoutHelper = new GridLayoutHelper(2);
-        gridLayoutHelper.setItemCount(4);
-        //网格布局管理器
-        goodsListBeans1 = new ArrayList<>();
-        new CateGoryAdapter1(getActivity(), goodsListBeans1, gridLayoutHelper);
-    }
-
-    private void textcanchu() {
-        LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
-        linearLayoutHelper.setItemCount(1);
-        categoryListBeans1 = new ArrayList<>();
-        textCAdapter = new TextCAdapter(getActivity(), categoryListBeans1, linearLayoutHelper);
-    }
-
     private void category() {
-        GridLayoutHelper gridLayoutHelper = new GridLayoutHelper(2);
-        gridLayoutHelper.setItemCount(4);
-        //网格布局管理器
-        goodsListBeans = new ArrayList<>();
-        cateGoryAdapter = new CateGoryAdapter(getActivity(), goodsListBeans, gridLayoutHelper);
-    }
-
-    private void textjujia() {
         LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
-        linearLayoutHelper.setItemCount(1);
-        categoryListBeans = new ArrayList<>();
-        textJAdapter = new TextJAdapter(getActivity(), categoryListBeans, linearLayoutHelper);
+        goodsListBeans = new ArrayList<>();
+        cateGoryAdapter = new CateGoryAdapter(getActivity(), linearLayoutHelper, goodsListBeans);
     }
 
     private void topic() {
@@ -261,18 +224,8 @@ public class OneFragment extends BaseFragment<MainPresenterImpl> implements Main
         List<ShowBean.DataBean.TopicListBean> topicList = showBean.getData().getTopicList();
         toplist.addAll(topicList);
         topicAdapter.notifyDataSetChanged();
-        List<ShowBean.DataBean.CategoryListBean> categoryList = showBean.getData().getCategoryList();
-        categoryListBeans.addAll(categoryList);
-        textJAdapter.notifyDataSetChanged();
-        List<ShowBean.DataBean.CategoryListBean.GoodsListBean> goodsList = showBean.getData().getCategoryList().get(_pos).getGoodsList();
+        List<ShowBean.DataBean.CategoryListBean.GoodsListBean> goodsList = showBean.getData().getCategoryList().get(0).getGoodsList();
         goodsListBeans.addAll(goodsList);
         cateGoryAdapter.notifyDataSetChanged();
-        List<ShowBean.DataBean.CategoryListBean> categoryList1 = showBean.getData().getCategoryList();
-        categoryListBeans1.addAll(categoryList1);
-        textCAdapter.notifyDataSetChanged();
-        List<ShowBean.DataBean.CategoryListBean.GoodsListBean> goodsList1 = showBean.getData().getCategoryList().get(_pos).getGoodsList();
-        goodsListBeans1.addAll(goodsList);
-        cateGoryAdapter.notifyDataSetChanged();
-
     }
 }

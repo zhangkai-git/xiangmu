@@ -4,12 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
@@ -25,18 +27,22 @@ import java.util.List;
 
 public class CateGoryAdapter extends DelegateAdapter.Adapter {
     private Context context;
-    private ArrayList<ShowBean.DataBean.CategoryListBean.GoodsListBean> categoryListBeans;
+    private LinearLayoutHelper linearLayoutHelper;
     private GridLayoutHelper gridLayoutHelper;
+    private DelegateAdapter delegateAdapter;
+    private int _pos;
+    private ArrayList<ShowBean.DataBean.CategoryListBean> categoryListBeans;
+    private GridLayoutAdapter adapter;
 
-    public CateGoryAdapter(Context context, ArrayList<ShowBean.DataBean.CategoryListBean.GoodsListBean> categoryListBeans, GridLayoutHelper gridLayoutHelper) {
+    public CateGoryAdapter(Context context, LinearLayoutHelper linearLayoutHelper, ArrayList<ShowBean.DataBean.CategoryListBean> categoryListBeans) {
         this.context = context;
+        this.linearLayoutHelper = linearLayoutHelper;
         this.categoryListBeans = categoryListBeans;
-        this.gridLayoutHelper = gridLayoutHelper;
     }
 
     @Override
     public LayoutHelper onCreateLayoutHelper() {
-        return gridLayoutHelper;
+        return linearLayoutHelper;
     }
 
     @NonNull
@@ -48,28 +54,36 @@ public class CateGoryAdapter extends DelegateAdapter.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ShowBean.DataBean.CategoryListBean.GoodsListBean goodsListBean = categoryListBeans.get(position);
         CateVH vh = (CateVH) holder;
-        vh.name.setText(goodsListBean.getName());
-        vh.price.setText("$" + goodsListBean.getRetail_price());
-        Glide.with(context).load(goodsListBean.getList_pic_url()).into(vh.image);
+        ShowBean.DataBean.CategoryListBean categoryListBean = categoryListBeans.get(position);
+        vh.name.setText(categoryListBean.getName());
+
+        ArrayList<ShowBean.DataBean.CategoryListBean.GoodsListBean> goodsListBeans = new ArrayList<>();
+        List<ShowBean.DataBean.CategoryListBean.GoodsListBean> goodsList = categoryListBean.getGoodsList();
+        goodsListBeans.addAll(goodsList);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
+        vh.recycler.setLayoutManager(gridLayoutManager);
+        adapter = new GridLayoutAdapter(context, goodsListBeans);
+        vh.recycler.setAdapter(adapter);
     }
 
     @Override
     public int getItemCount() {
-        return categoryListBeans.size();
+        if (categoryListBeans.size() > 0) {
+            return categoryListBeans.size();
+        } else {
+            return 0;
+        }
     }
 
     private class CateVH extends RecyclerView.ViewHolder {
-        ImageView image;
+        RecyclerView recycler;
         TextView name;
-        TextView price;
 
         public CateVH(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.cate_image);
-            name = itemView.findViewById(R.id.cate_name);
-            price = itemView.findViewById(R.id.cate_price);
+            name = itemView.findViewById(R.id.tv_name);
+            recycler = itemView.findViewById(R.id.rv_recycler);
         }
     }
 }

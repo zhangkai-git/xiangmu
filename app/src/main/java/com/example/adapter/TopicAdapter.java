@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
@@ -25,6 +26,7 @@ public class TopicAdapter extends DelegateAdapter.Adapter {
     private Context context;
     private ArrayList<ShowBean.DataBean.TopicListBean> topiclist;
     private GridLayoutHelper gridLayoutHelper;
+    private LinLayuotAdapter adapter;
 
     public TopicAdapter(Context context, ArrayList<ShowBean.DataBean.TopicListBean> topiclist, GridLayoutHelper gridLayoutHelper) {
         this.context = context;
@@ -46,31 +48,25 @@ public class TopicAdapter extends DelegateAdapter.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ShowBean.DataBean.TopicListBean topicListBean = topiclist.get(position);
         TopicVH vh = (TopicVH) holder;
-        vh.name.setText(topicListBean.getTitle());
-        vh.price.setText(topicListBean.getPrice_info() + "元起");
-        vh.title.setText(topicListBean.getSubtitle());
-        Glide.with(context).load(topicListBean.getScene_pic_url()).into(vh.image);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        vh.recycler.setLayoutManager(linearLayoutManager);
+        adapter = new LinLayuotAdapter(context, topiclist);
+        vh.recycler.setAdapter(adapter);
     }
 
     @Override
     public int getItemCount() {
-        return topiclist.size();
+        return 1;
     }
 
     private class TopicVH extends RecyclerView.ViewHolder {
-        ImageView image;
-        TextView name;
-        TextView title;
-        TextView price;
+        RecyclerView recycler;
 
         public TopicVH(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.topic_image);
-            name = itemView.findViewById(R.id.topic_name);
-            title = itemView.findViewById(R.id.topic_title);
-            price = itemView.findViewById(R.id.topic_price);
+            recycler = itemView.findViewById(R.id.rv_recycler);
         }
     }
 }

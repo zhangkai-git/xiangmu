@@ -4,32 +4,38 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="400dp"
+        android:layout_height="1dp"
+        android:background="#CDC2C2" />
+
     <ImageView
-        android:backgroundTint="#A19D9D"
         android:id="@+id/hotgoods_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:backgroundTint="#A19D9D"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:backgroundTint="#A19D9D"
         android:id="@+id/hotgoods_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:backgroundTint="#A19D9D"
         android:textColor="#C6BCBB"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/hotgoods_image" />
 
     <TextView
-        android:backgroundTint="#A19D9D"
         android:id="@+id/hotgoods_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:backgroundTint="#A19D9D"
         android:textColor="#E81414"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

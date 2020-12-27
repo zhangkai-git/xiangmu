@@ -12,4 +12,14 @@ public interface INetWorkInterface {
     <p> void getnewgoods(String url, INetCallBack<p> callBack);
 
     <p> void gethotgoods(String url, INetCallBack<p> callBack);
+
+    <p> void gettopic(String url, INetCallBack<p> callBack);
+
+    <p> void getjujia(String url, INetCallBack<p> callBack);
+
+    <p> void getcategory(String url, INetCallBack<p> callBack);
+
+    <p> void getcanchu(String url, INetCallBack<p> callBack);
+
+    <p> void getchuju(String url, INetCallBack<p> callBack);
 }
